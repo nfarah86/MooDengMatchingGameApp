@@ -23,7 +23,7 @@ To run the project locally:
    ```bash
    yarn install
    ```
-3. Go through the [tutorial]() to create a client ID, upload the contract, and grab the contract address
+3. Go through the [tutorial](https://medium.com/@nfarah86/moo-deng-matching-game-app-36fa901e4e4e) to create a client ID, upload the contract, and grab the contract address
 
 4. Set up environment variables in this app:
    - Create a `.env.local` file based on the `.env.example` file.
