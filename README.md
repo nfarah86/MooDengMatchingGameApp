@@ -1,59 +1,53 @@
+# Moo Deng Matching Game Depolyed on the Linea Sepolia Test Net
 
-![tw-banner](https://github.com/thirdweb-example/next-starter/assets/57885104/20c8ce3b-4e55-4f10-ae03-2fe4743a5ee8)
+## Overview
+This is a simple one-player Moo Deng emoji matching game deployed on the Linea Sepolia Test Net. The goal of the game is to match pairs of emojis from a shuffled deck. The user can interact with the smart contract on the blockchain, which keeps track of the game state, such as the player's score and card matches. The app is the building blocks for a matching game and showcases how to interact with Ethereum smart contracts using the Thirdweb SDK.
 
-# thirdweb-next-starter
+## Features
+- **One-player Game:** Play a matching game by selecting cards and finding pairs.
+- **Blockchain Integration:** Uses a smart contract to manage game logic and player state on the blockchain.
+- **Deck Shuffling:** The deck is shuffled each time a new game starts.
+- **Score Tracking:** Player score is tracked and updated based on matches found.
 
-Starter template to build an onchain react native app with [thirdweb](https://thirdweb.com/) and [next](https://nextjs.org/).
+## Getting Started
+The contract that is deployed to Thirdweb is located under `contract.sol` at the root of this project. You can use this code to upload the contract. 
 
-## Installation
+To run the project locally:
 
-Install the template using [thirdweb create](https://portal.thirdweb.com/cli/create)
+1. Clone the repository.
+   ```bash
+   git clone <repo-url>
+   ```
 
-```bash
-  npx thirdweb create app --next
-```
+2. Install dependencies:
+   ```bash
+   yarn install
+   ```
+3. Go through the [tutorial]() to create a client ID, upload the contract, and grab the contract address
 
-## Environment Variables
+4. Set up environment variables in this app:
+   - Create a `.env.local` file based on the `.env.example` file.
+   - Add the Thirdweb client ID as `NEXT_PUBLIC_TEMPLATE_CLIENT_ID`.
+   - Update the contract configuration in `client.ts`:
 
-To run this project, you will need to add the following environment variables to your .env file:
+     ```typescript
+     export const contract = getContract({
+       client,
+       chain: defineChain(59141),
+       address: "your contract address"
+     });
+     ```
 
-`CLIENT_ID`
+5. Run the development server:
+   ```bash
+   yarn dev
+   ```
 
-To learn how to create a client ID, refer to the [client documentation](https://portal.thirdweb.com/typescript/v5/client). 
+6. Open the app in your browser at `http://localhost:3000`.
 
-## Run locally
+## Technologies Used
+- **Next.js**: Create the UI
+- **Thirdweb SDK**: Blockchain integration for interacting with the Ethereum network
 
-Install dependencies
-
-```bash
-yarn
-```
-
-Start development server
-
-```bash
-yarn dev
-```
-
-Create a production build
-
-```bash
-yarn build
-```
-
-Preview the production build
-
-```bash
-yarn start
-```
-
-## Resources
-
-- [Documentation](https://portal.thirdweb.com/typescript/v5)
-- [Templates](https://thirdweb.com/templates)
-- [YouTube](https://www.youtube.com/c/thirdweb)
-- [Blog](https://blog.thirdweb.com)
-
-## Need help?
-
-For help or feedback, please [visit our support site](https://thirdweb.com/support)
+## License
+This project is licensed under the MIT License.
