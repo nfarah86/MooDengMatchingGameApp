@@ -1,7 +1,6 @@
-import { createThirdwebClient } from "thirdweb";
+import { createThirdwebClient, getContract } from "thirdweb";
+import { defineChain } from "thirdweb/chains";
 
-// Replace this with your client ID string
-// refer to https://portal.thirdweb.com/typescript/v5/client on how to get a client ID
 const clientId = process.env.NEXT_PUBLIC_TEMPLATE_CLIENT_ID;
 
 if (!clientId) {
@@ -10,4 +9,10 @@ if (!clientId) {
 
 export const client = createThirdwebClient({
   clientId: clientId,
+});
+
+export const contract = getContract({
+  client,
+  chain: defineChain(59141),
+  address: "0xe4C06911aC6850aEAEeA0B205b6c94c8BFdc32EC"
 });
