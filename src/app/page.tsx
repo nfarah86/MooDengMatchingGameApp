@@ -13,9 +13,7 @@ export default function Home() {
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
   const [score, setScore] = useState<number>(0);
 
-  // Note: These functions come from the thirdweb api  & the contract handels the logic for the game
-
-  // Pre: Fetch player's score information using useReadContract
+  // Fetch player's score information using useReadContract
   const { data: scoreData, isPending: scoreLoading } = useReadContract({
     contract,
     method: "function getScore() view returns (uint256)",
@@ -25,10 +23,11 @@ export default function Home() {
   useEffect(() => {
     if (scoreData && !scoreLoading) {
       setScore(Number(scoreData));
+      console.log(scoreData);
     }
   }, [scoreData, scoreLoading]);
 
-  // Step 1: we need to fetch the deck from the contract on component mount
+  // Fetch the deck from the contract on component mount
   const { data: deckData, isPending: deckLoading, refetch: refetchDeck } = useReadContract({
     contract,
     method: "function getDeck() view returns (string[16])",
@@ -45,7 +44,7 @@ export default function Home() {
     }
   }, [deckData, deckLoading]);
 
-  // Step 2: handle a card click
+  // Handle a card click
   const { mutate: sendTransaction } = useSendTransaction();
   const handleCardClick = (index: number) => {
     if (selectedCards.length === 1) {
@@ -63,7 +62,7 @@ export default function Home() {
         setScore((prevScore) => prevScore + 1);
       }
 
-      // Step 3: Send pickCard transaction to the blockchain
+      // Send pickCard transaction to the blockchain
       const transaction = prepareContractCall({
         contract,
         method: "function pickCard(uint8 cardIndex)",
@@ -78,18 +77,19 @@ export default function Home() {
     }
   };
 
-  // Step4: handle starting a new game & reset score & cards
+  // Handle starting a new game & reset score & cards
   const handleStartNewGame = () => {
     const transaction = prepareContractCall({
       contract,
       method: "function startNewGame()",
       params: [],
     });
+
     sendTransaction(transaction, {
       onSuccess: async () => {
         setScore(0);
         setSelectedCards([]);
-
+        
         // Refetch the newly shuffled deck after starting the new game
         await refetchDeck();
         if (deckData) {
@@ -107,7 +107,6 @@ export default function Home() {
   };
 
   return (
-    // html doesn't change much- just really updated for the cards
     <main className="p-4 pb-10 min-h-[100vh] flex items-center justify-center container max-w-screen-lg mx-auto">
       <div className="py-20">
         <Header />
@@ -122,12 +121,12 @@ export default function Home() {
           />
         </div>
 
-        {/* player score */}
+        {/* Player score */}
         <div className="text-center mb-8">
           <h3 className="text-2xl font-semibold">Player Score: {score}</h3>
         </div>
 
-        {/* new game button */}
+        {/* New game button */}
         <div className="text-center mb-8">
           <button
             className="px-4 py-2 bg-blue-500 text-white rounded"
@@ -137,7 +136,7 @@ export default function Home() {
           </button>
         </div>
 
-        {/* a simple game board */}
+        {/* Game board */}
         <div className="grid grid-cols-4 gap-4">
           {cards.map((card, index) => (
             <div
