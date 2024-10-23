@@ -17,6 +17,7 @@ To run the project locally:
 1. Clone the repository.
    ```bash
    git clone <repo-url>
+   cd MooDengMatchingGameApp
    ```
 
 2. Install dependencies:
